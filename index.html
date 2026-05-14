@@ -2505,13 +2505,25 @@ function renderQuickAccess(){
                 const draggedId = draggedCard.dataset.id;
                 const targetId = card.dataset.id;
 
-                const draggedIndex = quickAccessIds.indexOf(draggedId);
-                const targetIndex = quickAccessIds.indexOf(targetId);
+const draggedIndex = quickAccessIds.indexOf(draggedId);
+const targetIndex = quickAccessIds.indexOf(targetId);
 
-                quickAccessIds.splice(draggedIndex, 1);
-                quickAccessIds.splice(targetIndex, 0, draggedId);
+[quickAccessIds[draggedIndex], quickAccessIds[targetIndex]] =
+[quickAccessIds[targetIndex], quickAccessIds[draggedIndex]];
 
-                showPage('inicio');
+if(draggedCard && draggedCard !== card){
+
+    const draggedId = draggedCard.dataset.id;
+    const targetId = card.dataset.id;
+
+    const draggedIndex = quickAccessIds.indexOf(draggedId);
+    const targetIndex = quickAccessIds.indexOf(targetId);
+
+    [quickAccessIds[draggedIndex], quickAccessIds[targetIndex]] =
+    [quickAccessIds[targetIndex], quickAccessIds[draggedIndex]];
+
+    renderQuickAccess();
+}
 renderQuickAccess();
             }
         });
